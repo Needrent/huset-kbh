@@ -21,6 +21,12 @@
 body{
     background: white;
 }
+p{
+    font: var(--font-a);
+    font-size: var(--font-p-size) !important;
+    line-height: var(--font-p-lead) !important;
+    padding-bottom: 1.6rem;
+}
 /*----------------------------------------Varibles */
 :root{
     /*colors*/
@@ -35,14 +41,15 @@ body{
     --color-img-overlay: rgba(96,21,248,0.09);
 
     /*fonts*/
-
- /* font: font-style font-variant font-weight font-size/line-height font-family;*/
-
-   /* --h1-font: 100 15rem/15rem "huset";  desktop version*/
     --font-h1: 100 4.5rem/4.5rem "huset";
     --font-h1-size: 4.5rem;
     --font-a: 100 1.6rem/1.9rem "Avenir";
+    --font-p-size: 1.3rem;
+    --font-p-lead: 1.6rem;
     --font-some: "FontAwesome", san-serif;
+
+    /* Margins */
+    --margin-index: 0 1.5rem 0 1.5rem;
 }
 /*----------------------------------------Menus */
 .active{
@@ -108,8 +115,7 @@ h1 span{
 main{
     background: url(/images/Pattern_test001.png) var(--color-bg);
     display: grid;
-    columns: 1;
-    column-gap: 0;
+    grid-auto-columns: 1fr;
     position: relative;
     padding: var(--font-h1-size) 0 0 0;
 }
@@ -121,7 +127,91 @@ h2{
     text-align: center;
 }
 
+main section, #pageContainer{
+    position: relative;
+    width: 25.5rem;
+    margin: 0 auto 4.5rem auto ;
+    border: var(--color-border) 0.1rem solid;
+    box-sizing: border-box;
+    border-radius: 3rem;
+    overflow: hidden;
+    background: var(--color-body);
+}
+main section h2{
+    position: relative;
+}
 
+main section h3,
+#pageContainer h3{
+    font-size: 1.3rem !important;
+    color: var(--color-black) !important;
+    font-weight: bold !important;
+    margin-top: 1rem !important;
+}
+main section h4,
+#pageContainer h4{
+    margin-bottom: 1rem !important;
+}
+main section h3,
+main section h4,
+main section a,
+main section p,
+#pageContainer h3,
+#pageContainer h4,
+#pageContainer p,
+#pageContainer a{
+    margin: var(--margin-index);
+    font: var(--font-a);
+    color: var(--color-text);
+
+}
+main section h4,
+main section a,
+#pageContainer a,
+#pageContainer h4{
+    font-size: 1rem !important;
+}
+main section a,
+main section a:visited,
+#pageContainer a,
+#pageContainer a:visited{
+    color: var(--color-a-hover);
+    text-decoration: none;
+    margin-bottom: 1.5rem !important;
+    display: inline-block;
+}
+main section p{
+    height: calc(var(--font-p-lead) * 2);
+    overflow: hidden;
+}
+.imgContainer{
+    width: 25.3rem;
+    height: 16.5rem;
+    position: relative;
+}
+.overlay, .imgContainer img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.overlay{
+    background: var(--color-img-overlay);
+    z-index: 1;
+}
+/*----------------------------------------Single page */
+#pageContainer{
+    width: 25.3rem;
+}
+#pageContainer section{
+    border: none;
+    width: 100%;
+    display: block;
+    margin-bottom: 0;
+}
+#pageContainer aside{
+    float: left;
+    width: 100%;
+}
 /*----------------------------------------Footer */
 footer{
     text-align: center;
@@ -129,11 +219,154 @@ footer{
 footer img{
     width: 25%;
     height: auto;
-    margin: 0 0 0 calc(100% / 3.5 - 25%);
+    margin: 1.5rem 0 3rem calc(100% / 3.5 - 25%);
+}
+.hide{
+    display: none;
 }
 /*----------------------------------------Responsive */
-@media (min-width: 1200px){
+@media (min-width: 768px){
     h1 span{
         display: inline-block;
     }
+    header nav{
+            margin: 0 25% 0 25%;
+    }
+    main{
+        grid-template-columns: 1fr 1fr;
+        padding-right: 10%;
+        padding-left: 10%;
+    }
+    main nav {
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+    footer img {
+        width: 10%;
+        height: auto;
+        margin: 1.5rem calc(100% / 3.5 - 25%) 3rem 0;
+        float: right;
+    }
+    #singlePages{
+        grid-template-columns: 1fr;
+        padding-right: 10%;
+        padding-left: 10%;
+    }
+    #singlePages section{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+     section p,
+    #singlePages section h3{
+        overflow: visible;
+        grid-column-start: 2;
+        grid-row-start: 1;
+    }
+    #singlePages .imgContainer{
+    width: 55rem;
+    position: relative;
+    height: 35rem;
+        }
+    #pageContainer{
+    width: 90%;
+}
+#pageContainer section{
+    border: none;
+    max-width: 55rem;
+    float: left;
+    display: inline-block;
+    border-top-right-radius: 0;
+}
+#pageContainer aside{
+    float: left;
+    width: 100%;
+    display: block;
+}
+        footer img {
+        width: 5%;
+        height: auto;
+        margin: 1.5rem calc(100% / 3.5 - 25%) 3rem 0;
+        float: right;
+    }
+}
+@media (min-width: 1024px){
+    main{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    #pageContainer section{
+    border: none;
+    max-width: 47rem;
+    float: left;
+    display: inline-block;
+}
+    #singlePages .imgContainer {
+    width: 47rem;
+    position: relative;
+    height: 29rem;
+}
+#pageContainer aside{
+    float: left;
+    width: calc(100% - 47rem);
+    display: inline-block;
+}
+
+}
+@media (min-width: 1190px){
+    h1 span{
+        display: inline-block;
+    }
+    header nav{
+            margin: 0 25% 0 25%;
+    }
+    main{
+grid-template-columns: 1fr 1fr
+        padding-right: 10%;
+        padding-left: 10%;
+    }
+    main nav {
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+
+    #singlePages{
+        grid-template-columns: 1fr;
+        padding-right: 10%;
+        padding-left: 10%;
+    }
+    #singlePages section{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+     section p,
+    #singlePages section h3{
+        overflow: visible;
+        grid-column-start: 2;
+        grid-row-start: 1;
+    }
+    #singlePages .imgContainer{
+    width: 55rem;
+    position: relative;
+    height: 35rem;
+        }
+    #pageContainer{
+    width: 90%;
+}
+#pageContainer section{
+    border: none;
+    max-width: 55rem;
+    float: left;
+    display: inline-block;
+}
+#pageContainer aside{
+    float: left;
+    width: calc(100% - 55rem);
+    display: inline-block;
+}
+}
+@media (min-width: 1440px){
+main {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
 }
