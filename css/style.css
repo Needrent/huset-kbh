@@ -370,3 +370,12 @@ main {
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 }
+
+@media (min-width: 1920px){
+    main{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+    #pageContainer{
+        width: 65%;
+    }
+}
