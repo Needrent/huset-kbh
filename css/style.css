@@ -113,7 +113,7 @@ h1 span{
 #logo{}
 /*----------------------------------------content */
 main{
-    background: url(/images/Pattern_test001.png) var(--color-bg);
+    background: url(../images/Pattern_test001.png) var(--color-bg);
     display: grid;
     grid-auto-columns: 1fr;
     position: relative;
