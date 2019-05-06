@@ -8,36 +8,42 @@ function menu(){
     window.location.href = "index.html";
 }
 /*------------------------------------------------------------load single content*/
-const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/huset_db";
-const params = new URLSearchParams(window.location.search);
-const eventID = params.get("id");
-console.log(eventID);
-        fetch(baseLink + "?id=" +eventID + "?_embed").then(e => e.json()).then(showEvent);
-
-
-/*
-const article = document.querySelector("article");
-const make = document.querySelector(".make");
-const model = document.querySelector(".model");
-const price = document.querySelector(".price");
-const km = document.querySelector(".km");
-const color = document.querySelector(".color");
-const excerpt = document.querySelector(".excerpt");
-const img = document.querySelector("img");
-
-function showEvent(data) {
-    data._embedded["wp:term"][1].forEach(term => {
-        console.log(term.name)
-        const newP = document.createElement("p");
-        newP.textContent = term.name;
-        newP.classList.add("tag");
-        article.appendChild(newP);
-    });
-    make.textContent = data.make;
-    model.textContent = data.title.rendered;
-    price.textContent = data.price;
-    km.textContent = data.km;
-    color.textContent = data.color;
-    excerpt.innerHTML = data.excerpt.rendered;
-    img.src = data._embedded["wp:featuredmedia"][0].media_details.sizes.full.source_url;
-}*/
+  const template = document.querySelector("template").content;
+        const parent = document.querySelector("main");
+        const urlParms = new URLSearchParams(window.location.search);
+        const catID = urlParms.get("cat");
+        const catNav = document.querySelector("#catNav");
+        const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/";
+        function loadCats() {
+            fetch(baseLink + "categories?per_page=15").then(e => e.json()).then(buildCatMenu);
+        }
+        function loadByCat(cat) {
+            fetch(baseLink + "car?categories=" + cat + "&_embed").then(e => e.json()).then(show);
+        }
+        function loadAll() {
+            fetch(baseLink + "car?_embed").then(e => e.json()).then(show);
+        }
+        loadCats()
+        if (catID) {
+            loadByCat(catID)
+        } else {
+            loadAll()
+        }
+        function buildCatMenu(cats) {
+            cats.forEach(cat => {
+                const newA = document.createElement("a");
+                newA.textContent = cat.name;
+                newA.href = "?cat=" + cat.id;
+                catNav.appendChild(newA);
+            })
+        }
+        function show(cars) {
+            cars.forEach(car => {
+                const clone = template.cloneNode(true);
+                clone.querySelector(".make").textContent = car.make;
+                clone.querySelector(".model").textContent = car.title.rendered;
+                clone.querySelector("img").src = car._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url;
+                clone.querySelector("a").href = "details.html?id=" + car.id;
+                parent.appendChild(clone);
+            })
+        }
