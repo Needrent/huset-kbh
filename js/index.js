@@ -13,12 +13,13 @@ function menu(){
         const urlParms = new URLSearchParams(window.location.search);
         const catID = urlParms.get("cat");
         const catNav = document.querySelector("#catNav");
-        const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset/";
+        const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset";
+
         function loadCats() {
-            fetch(baseLink + "huset_genre?per_page=15").then(e => e.json()).then(buildCatMenu);
+            fetch("http://keawp.needrent.dk/wp-json/wp/v2/huset_genre?per_page=15").then(e => e.json()).then(buildCatMenu);
         }
         function loadByCat(cat) {
-            fetch(baseLink + "event?huset_genre=" + cat + "&_embed").then(e => e.json()).then(show);
+            fetch(baseLink + "?embed" + "?huset_genre?event?huset_genre=" + cat + "&_embed").then(e => e.json()).then(show);
         }
         function loadAll() {
             fetch(baseLink + "?_embed").then(e => e.json()).then(show);
@@ -30,6 +31,7 @@ function menu(){
             loadAll()
         }
         function buildCatMenu(cats) {
+            console.log(cats);
             cats.forEach(cat => {
                 const newA = document.createElement("a");
                 newA.textContent = cat.name;
@@ -39,7 +41,7 @@ function menu(){
         }
         function show(events) {
             events.forEach(event => {
-                console.log(event);
+               console.log(event.huset_genre[0]);
                 const clone = template.cloneNode(true);
                 clone.querySelector("h3").innerHTML = event.title.rendered;
                 //clone.querySelector(".model").textContent = event.title.rendered;
