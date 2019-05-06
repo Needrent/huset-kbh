@@ -155,7 +155,8 @@ main section h4,
 main section h3,
 main section h4,
 main section a,
-main section p,
+main section article,
+main section ul,
 #pageContainer h3,
 #pageContainer h4,
 #pageContainer p,
@@ -166,10 +167,22 @@ main section p,
 
 }
 main section h4,
+main section ul li,
 main section a,
 #pageContainer a,
 #pageContainer h4{
     font-size: 1rem !important;
+}
+main section ul{
+    list-style: none;
+}
+
+main section ul li{
+    display: inline-block;
+    margin: 0 0.08rem 0 0;
+}
+main section ul li::after{
+    content: ', ';
 }
 main section a,
 main section a:visited,
@@ -180,7 +193,7 @@ main section a:visited,
     margin-bottom: 1.5rem !important;
     display: inline-block;
 }
-main section p{
+main section article{
     height: calc(var(--font-p-lead) * 2);
     overflow: hidden;
 }
