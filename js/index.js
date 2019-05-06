@@ -13,7 +13,7 @@ function menu(){
         const urlParms = new URLSearchParams(window.location.search);
         const catID = urlParms.get("cat");
         const catNav = document.querySelector("#catNav");
-        const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/";
+        const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset/";
         function loadCats() {
             fetch(baseLink + "huset_genre?per_page=15").then(e => e.json()).then(buildCatMenu);
         }
@@ -21,7 +21,7 @@ function menu(){
             fetch(baseLink + "event?huset_genre=" + cat + "&_embed").then(e => e.json()).then(show);
         }
         function loadAll() {
-            fetch(baseLink + "event?_embed").then(e => e.json()).then(show);
+            fetch(baseLink + "?_embed").then(e => e.json()).then(show);
         }
         loadCats()
         if (catID) {
@@ -39,14 +39,22 @@ function menu(){
         }
         function show(events) {
             events.forEach(event => {
+                console.log(event);
                 const clone = template.cloneNode(true);
-                clone.querySelector(".make").textContent = car.make;
-                clone.querySelector(".model").textContent = car.title.rendered;
-                clone.querySelector("img").src = car._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url;
+                clone.querySelector("h3").innerHTML = event.title.rendered;
+                //clone.querySelector(".model").textContent = event.title.rendered;
+                clone.querySelector("img").src = event._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url;
                 clone.querySelector("a").href = "details.html?id=" + event.id;
                 parent.appendChild(clone);
             })
         }
+
+/*const eventName = clone.querySelector("h3");
+        const img = clone.querySelector(".imgContainer img");
+        const eventShort = clone.querySelector("section article");
+        const eventMore = clone.querySelector("a");*/
+
+
 /*const template = document.querySelector("#tempContent").content;
         const parent = document.querySelector("main");
         const urlParms = new URLSearchParams(window.location.search);
