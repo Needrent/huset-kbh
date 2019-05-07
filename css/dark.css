@@ -273,6 +273,7 @@ footer ul{
 footer ul li,
 footer ul li a{
     font: var(--font-a);
+    color: var(--color-a);
 }
 footer ul li a{
    color: var(--color-a-hover);
