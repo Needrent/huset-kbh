@@ -35,6 +35,12 @@ function showMenu(data){
 
         if(object.id == eventID){
             console.log(object)
+            /*document.title =
+                object._embedded['wp:term']['0']['0'].name +
+                " at " +
+                object._embedded['wp:term']['1']['0'].name +
+                " | Huset KBH";*/
+            document.title = object.title.rendered + " | Huset-KBH"
 
             eventImg.src = object._embedded['wp:featuredmedia']['0'].media_details.sizes.full.source_url;
 
