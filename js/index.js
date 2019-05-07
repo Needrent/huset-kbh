@@ -74,12 +74,9 @@ function show(data){
 
         });
 
-
-
-
         // append to the DOM
         parent.appendChild(clone);
-            }
+        }
     });
 
 }

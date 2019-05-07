@@ -9,30 +9,24 @@ function menu(){
 }
 /*------------------------------------------------------------load single content*/
 
-const parent = document.querySelector("main");
+const eventImg = document.querySelector(".imgContainer img");
+const eventVenue = document.querySelector("h3");
+const eventTime = document.querySelector("h4");
+const eventPrice = document.querySelector("#price");
+const eventTickets = document.querySelector("#tickets");
+const eventInfo = document.querySelector("article");
 
 const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset?id=";
-const params = new URLSearchParams(window.location.search);
-const eventID = params.get("id");
+const paramsId = new URLSearchParams(window.location.search);
+const eventID = paramsId.get("id");
 
-const myLink = baseLink + eventID + "?_embed";
-console.log(myLink);
+//console.log(eventID);
 
-fetch(myLink).then(e => e.json()).then(showCar);
+fetch(baseLink + eventID + "?_embed").then(e => e.json()).then(showEvent);
 
-function showCar(data) {
-            data.myLink.forEach(term=>{
-                console.log(term.name)
-                const newP = document.createElement("p");
-                newP.textContent=term.name;
-                newP.classList.add("tag");
-                article.appendChild(newP);
-            });
-            make.textContent = data.make;
-            model.textContent = data.title.rendered;
-            price.textContent = data.price;
-            km.textContent = data.km;
-            color.textContent = data.color;
-            excerpt.innerHTML = data.excerpt.rendered;
-            img.src = data._embedded["wp:featuredmedia"][0].media_details.sizes.full.source_url;
-        }
+function showEvent(object){
+    console.log(object);
+
+    //document.title = object.huset_genre + " | Huset KBH";
+}
+
