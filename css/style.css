@@ -160,7 +160,7 @@ main section h2{
 }
 
 main section h3,
-#pageContainer h3{
+#eventVenue li{
     font-size: 1.3rem !important;
     color: var(--color-black) !important;
     font-weight: bold !important;
@@ -201,7 +201,12 @@ main section ul li{
     margin: 0 0.08rem 0 0;
 }
 main section ul li::after{
-    content: ', ';
+    content: '&';
+    display: inherit;
+    padding: 0 0.3rem 0 0.3rem;
+}
+main section ul li:last-of-type::after{
+    content: '';
 }
 main section a{
         position: absolute;
