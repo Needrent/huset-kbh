@@ -7,167 +7,96 @@ logo.style.cursor = "pointer";
 function menu(){
     window.location.href = "index.html";
 }
-/*------------------------------------------------------------Menu */
-//const template = document.querySelector("#tempMenu").content;
-const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/";
-const baseGenre = "huset_genre";
-    // const catID = urlParms.get("event");
-
-const catNav = document.querySelector("#catNav");
-
-function loadCats() {
-            fetch(baseLink + "huset_genre?per_page=15").then(e => e.json()).then(buildCatMenu);
-        }
-        function loadByCat(cat) {
-            fetch(baseLink + "event?huset_genre=" + cat + "&_embed").then(e => e.json()).then(show);
-        }
-        function loadAll() {
-            fetch(baseLink + "event?_embed").then(e => e.json()).then(show);
-        }
-        loadCats()
-
-
-function buildCatMenu(data){
-    data.forEach(cat=>{
-        const newA = document.createElement("a");
-        const newBreake = document.createElement("span");
-        newBreake.innerHTML = " &sol; "
-        newA.textContent=cat.name;
-        newA.href="?event="+cat.id;
-
-        catNav.appendChild(newA);
-    })
-}
-
-/*------------------------------------------------------------Index */
-
-const frontPage = "db_huset?_embed";
+/*------------------------------------------------------------Content */
+let myLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset?_embed";
+let myCatLink = "http://keawp.needrent.dk/wp-json/wp/v2/huset_genre";
 const template = document.querySelector("#tempContent").content;
 const parent = document.querySelector("main");
+const menuBtn = document.querySelector("#catNav");
 
 function loadData(link){
     fetch(link).then(e=>e.json()).then(data=>show(data));
 }
+function loadMenuData(link){
+    fetch(link).then(e=>e.json()).then(data=>showMenu(data));
+}
+function showMenu(data){
+    data.forEach(object=>{
+
+
+        if(object.count != 0){
+            console.log(object)
+            //data.forEach(object=>{
+
+            let newBtn = document.createElement("a");// create element
+            let fillBtn = object.name;
+
+            newBtn.textContent = fillBtn;// fill the created element
+            newBtn.href = "?event=" + object.id;
+
+            console.log(newBtn);
+            menuBtn.appendChild(newBtn);
+           // })
+        }
+    });
+
+}
+loadMenuData(myCatLink);
 
 function show(data){
-    data.forEach(event=>{
-        console.log(event);
+    data.forEach(object=>{
+        //console.log(object);
         // clone the template
         const clone = template.cloneNode(true);
 
         // populate the template
-        const eventName = clone.querySelector("h3");
-        const img = clone.querySelector(".imgContainer img");
-        const eventShort = clone.querySelector("section article");
-        const eventMore = clone.querySelector("a");
+        //const h2 = clone.querySelector("h2");
+        clone.querySelector("h3").innerHTML = object.title.rendered;
+        clone.querySelector("img").src = object._embedded['wp:featuredmedia']['0'].media_details.sizes.full.source_url;
+        clone.querySelector("img").title = object.title.rendered;
+        clone.querySelector("section article").innerHTML = object.content.rendered;
+        clone.querySelector("a").href = "page.html?id=" + object.id;
 
-        eventName.innerHTML=event.title.rendered;
-        img.src=event._embedded['wp:featuredmedia']['0'].media_details.sizes.full.source_url;
-        img.alt=event.title.rendered;
-        eventShort.innerHTML=event.content.rendered;
-        eventMore.href = "page.html?id=112";/*+ event.id*/
 
-        let eventVenueData = event._embedded['wp:term']['1'];
+        let venueData = object._embedded['wp:term']['1'];
 
-        eventVenueData.forEach(function(element){
-            console.log(element);
-            let newEvent = document.createElement('li');
-            let fillEvent = element.name;
-
-            newEvent.textContent = fillEvent;
-            const eventVenue = clone.querySelector(".venue");
-
-            eventVenue.appendChild(newEvent);
-
-        });
-        /*
-        let bandFormerData = object._embedded['wp:term']['1'];
-
-        if(bandFormerData == 0){
-            bandFormerLabel.classList.add("hide");
-        }else{
-                        bandFormerData.forEach(function(element){
+        venueData.forEach(function(element){
             //console.log(element);
-            let newMember = document.createElement('li');
-            let fillMember = element.name;
+            let newVenue = document.createElement('li');
+            let fillVenue = element.name;
 
-            newMember.textContent = fillMember;
-            const bandMembers = clone.querySelector(".bandFormer");
+            newVenue.textContent = fillVenue;
+            const venue = clone.querySelector(".venue");
 
-            bandMembers.appendChild(newMember);
-
-        });
-        }
-
-        let bandGenreData = object._embedded['wp:term']['2'];
-
-        bandGenreData.forEach(function(element){
-            //console.log(element);
-            let newMember = document.createElement('li');
-            let fillMember = element.name;
-
-            newMember.textContent = fillMember;
-            const bandMembers = clone.querySelector(".bandGenre");
-
-            bandMembers.appendChild(newMember);
+            venue.appendChild(newVenue);
 
         });
 
-        let bandInstrumentData = object._embedded['wp:term']['3'];
 
-        bandInstrumentData.forEach(function(element){
-            //console.log(element);
-            let newMember = document.createElement('li');
-            let fillMember = element.name;
-
-            newMember.textContent = fillMember;
-            const bandMembers = clone.querySelector(".bandInstruments");
-
-            bandMembers.appendChild(newMember);
-
-        });
-
-        let bandLabelData = object._embedded['wp:term']['4'];
-
-        bandLabelData.forEach(function(element){
-           // console.log(element);
-            let newMember = document.createElement('li');
-            let fillMember = element.name;
-
-            newMember.textContent = fillMember;
-            const bandMembers = clone.querySelector(".bandLabel");
-
-            bandMembers.appendChild(newMember);
-
-        });
-
-        if(object.alias){
-            bandAlias.innerHTML="<span>Alias: </span>" +object.alias;
-        }
-        else{
-            bandAlias.classList.add("hide");
-        }
-        if(object.end_year == "0000-00-00"){
-            bandEnd.classList.add("hide");
-        }
-        else{
-            let bandEndData = new Date(object.end_year);
-            let bandEndYear = bandEndData.getFullYear();
-            bandEnd.textContent = "Broke up: " + bandEndYear;
-        }
-        if(object.website){
-            website.href=object.website;
-            website.textContent=object.website;
-        }
-        else{
-            website.classList.add("hide");
-        }
-
-*/
 
         // append to the DOM
         parent.appendChild(clone);
-    })
+    });
+}
+/*------------------------------------------------------------Menu */
+/*let myCatLink = "http://keawp.needrent.dk/wp-json/wp/v2/huset_genre";
+
+function loadMenu(link){
+    fetch(link).then(e=>e.json()).then(data=>show(data));
 }
 
-loadData(baseLink+frontPage);
+function show(data){
+    data.forEach(menuObj=>{
+       // console.log(menuObj);
+        if(menuObj.count == 0){
+            console.log(menuObj);
+        }
+        else{
+            console.log(menuObj + " Is printed");
+        }
+
+        });*/
+
+
+loadData(myLink);
+//loadMenu(myCatLink);
