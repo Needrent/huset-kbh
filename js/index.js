@@ -26,7 +26,6 @@ function showMenu(data){
 
         if(object.count != 0){
             console.log(object)
-            //data.forEach(object=>{
 
             let newBtn = document.createElement("a");// create element
             let fillBtn = object.name;
@@ -36,16 +35,19 @@ function showMenu(data){
 
             console.log(newBtn);
             menuBtn.appendChild(newBtn);
-           // })
         }
     });
-
 }
 loadMenuData(myCatLink);
 
+const urlP = new URLSearchParams(window.location.search);
+        console.log(urlP.get("event"));
+
+
 function show(data){
     data.forEach(object=>{
-        //console.log(object);
+        if (object.huset_genre[0] == urlP.get("event") || urlP.get("event") == null){
+        //console.log("genre: " + object.huset_genre);
         // clone the template
         const clone = template.cloneNode(true);
 
@@ -74,9 +76,12 @@ function show(data){
 
 
 
+
         // append to the DOM
         parent.appendChild(clone);
+            }
     });
+
 }
 /*------------------------------------------------------------Menu */
 /*let myCatLink = "http://keawp.needrent.dk/wp-json/wp/v2/huset_genre";

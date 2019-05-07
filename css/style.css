@@ -51,6 +51,17 @@ p{
     /* Margins */
     --margin-index: 0 1.5rem 0 1.5rem;
 }
+h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+a::selection,
+li::selection,
+span::selection,
+img::selection,
+p::selection{
+    background: var(--color-a-hover);
+}
 /*----------------------------------------Menus */
 .active{
     border-bottom: 0.3rem solid var(--color-a-hover);
