@@ -63,7 +63,7 @@ p::selection{
     background: var(--color-img-overlay);
     padding: 0.2rem 0.5rem 0 0.5rem;
 }
-nav a, nav a:visited{
+nav a, nav a:visited,footer ul li a{
     font: var(--font-a);
     color: var(--color-a);
     text-decoration: none;
@@ -71,7 +71,7 @@ nav a, nav a:visited{
     padding: 0.2rem 0.5rem 0.3rem 0.5rem;
     transition: 0.2s;
 }
-nav a:hover{
+nav a:hover,footer ul li a:hover{
     color: var(--color-a-hover);
     border-bottom: 0.3rem solid var(--color-a-hover);
     background: var(--color-img-overlay);
@@ -264,6 +264,18 @@ footer img{
 }
 .hide{
     display: none;
+}
+footer ul{
+    margin: 1.5rem 0 0 0;
+    list-style: none;
+    display: block;
+}
+footer ul li,
+footer ul li a{
+    font: var(--font-a);
+}
+footer ul li a{
+   color: var(--color-a-hover);
 }
 /*----------------------------------------Responsive */
 @media (min-width: 768px){
