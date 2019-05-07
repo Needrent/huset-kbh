@@ -364,7 +364,9 @@ footer ul li a{
     width: calc(100% - 47rem);
     display: inline-block;
 }
-
+    aside{
+        margin: 1.5rem 0 0 0;
+    }
 }
 @media (min-width: 1190px){
     h1 span{
