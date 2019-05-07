@@ -78,8 +78,6 @@ function showMenu(data){
 
                 eventVenue.appendChild(newVenue);
             });
-
-
         }
     });
 }
