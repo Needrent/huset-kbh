@@ -149,6 +149,12 @@ main section, #pageContainer{
     background: var(--color-body);
     min-height: 33rem;
 }
+#pageContainer section{
+    min-height: 0 !important;
+}
+#pageContainer section a{
+    position: relative;
+}
 main section h2{
     position: relative;
 }
