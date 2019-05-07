@@ -19,20 +19,26 @@ const eventTickets = document.querySelector("#tickets");
 const eventInfo = document.querySelector("article");
 
 
-const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset?id=";
+const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset?_embed";
 const paramsId = new URLSearchParams(window.location.search);
 const eventID = paramsId.get("id");
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
+console.log(baseLink);
 
-function loadMenuData(link){
-    fetch(link + eventID + "?_embed").then(e=>e.json()).then(data=>showMenu(data));
+
+function loadPageData(link){
+    fetch(link).then(e=>e.json()).then(data=>showMenu(data));
 }
 function showMenu(data){
     data.forEach(object=>{
 
         if(object.id == eventID){
             console.log(object)
+
+            eventImg.src = object._embedded['wp:featuredmedia']['0'].media_details.sizes.full.source_url;
+
+            eventGenre.textContent = object._embedded['wp:term']['0']['0'].name;
 
             eventName.innerHTML = object.title.rendered;
             eventInfo.innerHTML = object.content.rendered;
@@ -60,22 +66,19 @@ function showMenu(data){
             eventPrice.href = object.tickets;
             eventTickets.href = object.tickets;
 
-           /* let venueData = object._embedded['wp:term']['1'];
+            let venueData = object._embedded['wp:term']['1'];
 
-            venueData.forEach(function(element){
-            //console.log(element);
-            let newVenue = document.createElement('li');
-            let fillVenue = element.name;
+            venueData.forEach(function(elem){
+                console.log(elem);
 
-            newVenue.textContent = fillVenue;
-            const venue = clone.querySelector(".venue");
+                let newVenue = document.createElement('li');
+                let fillVenue = elem.name;
 
-            venue.appendChild(newVenue);
+                newVenue.textContent = fillVenue;
 
-        });*/
-
-
+                eventVenue.appendChild(newVenue);
+            });
         }
     });
 }
-loadMenuData(baseLink);
+loadPageData(baseLink);
