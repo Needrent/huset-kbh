@@ -22,8 +22,8 @@ function menu(){
     window.location.href = "index.html";
 }
 /*------------------------------------------------------------Content */
-let myLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset?_embed";
-let myCatLink = "http://keawp.needrent.dk/wp-json/wp/v2/huset_genre";
+let myLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset_film?_embed";
+let myCatLink = "http://keawp.needrent.dk/wp-json/wp/v2/huset_film";
 const template = document.querySelector("#tempContent").content;
 const parent = document.querySelector("main");
 const menuBtn = document.querySelector("#catNav");
@@ -60,7 +60,7 @@ const urlP = new URLSearchParams(window.location.search);
 
 function show(data){
     data.forEach(object=>{
-        if (object.huset_genre[0] == urlP.get("event") || urlP.get("event") == null){
+        if (object.huset_film[0] == urlP.get("event") || urlP.get("event") == null){
         console.log(object);
         // clone the template
         const clone = template.cloneNode(true);

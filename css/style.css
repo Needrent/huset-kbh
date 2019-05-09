@@ -62,6 +62,41 @@ img::selection,
 p::selection{
     background: var(--color-a-hover);
 }
+/*----------------------------------------preloader */
+#preloader{
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: var(--color-bg);
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.no-js #preloader {
+    display: none;
+}
+#preloader img{
+    width: 15vw;
+    margin: 30vh 0 0 0;
+    animation: preload 1s alternate infinite ;
+}
+.preloadOut{
+    animation: preOut 0.5s ease-out forwards;
+    overflow: hidden;
+}
+@keyframes preload{
+    0%{margin: 30vh 0 0 0;}
+    100%{margin: 35vh 0 0 0;}
+}
+@keyframes preOut{
+    100%{
+        left: 50vw;
+        right: 50vw;
+    }
+}
 /*----------------------------------------Menus */
 .active{
     border-bottom: 0.3rem solid var(--color-a-hover);
@@ -124,7 +159,7 @@ h1 span{
 #logo{}
 /*----------------------------------------content */
 main{
-    background: url(../images/Pattern_test001.png) var(--color-bg);
+    background: url(../images/pattern_film.png) var(--color-bg);
     display: grid;
     grid-auto-columns: 1fr;
     position: relative;

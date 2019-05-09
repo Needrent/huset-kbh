@@ -33,7 +33,7 @@ const eventTickets = document.querySelector("#tickets");
 const eventInfo = document.querySelector("article");
 
 
-const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset?_embed";
+const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset_film?_embed";
 const paramsId = new URLSearchParams(window.location.search);
 const eventID = paramsId.get("id");
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
