@@ -18,6 +18,10 @@
     padding: 0;
     font-size: 10px;
 }
+body, html{
+    height: 100%;
+    width: 100%;
+}
 body{
     background: black;
 }
@@ -26,6 +30,41 @@ p{
     font-size: var(--font-p-size) !important;
     line-height: var(--font-p-lead) !important;
     padding-bottom: 1.6rem;
+}
+/*----------------------------------------preloader */
+#preloader{
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: var(--color-bg);
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.no-js #preloader {
+    display: none;
+}
+#preloader img{
+    width: 15vw;
+    margin: 30vh 0 0 0;
+    animation: preload 1s alternate infinite ;
+}
+.preloadOut{
+    animation: preOut 0.5s ease-out forwards;
+    overflow: hidden;
+}
+@keyframes preload{
+    0%{margin: 30vh 0 0 0;}
+    100%{margin: 35vh 0 0 0;}
+}
+@keyframes preOut{
+    100%{
+        left: 50vw;
+        right: 50vw;
+    }
 }
 /*----------------------------------------Varibles */
 :root{

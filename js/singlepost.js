@@ -1,3 +1,17 @@
+const preload = document.getElementById("preloader");
+
+window.addEventListener('load', function () {
+    setTimeout(preloadEnd,500);
+
+    function preloadEnd(){
+        preload.classList.add("preloadOut");
+        window.addEventListener("animationend", hide);
+
+        function hide(){
+            preload.style.display = "none";
+            }
+        }
+})
 /*------------------------------------------------------------Logo button */
 const logo = document.querySelector("#logo");
 
@@ -16,7 +30,7 @@ const eventTime = document.querySelector("#eventTime");
 const eventGenre = document.querySelector("#eventGenre");
 const eventPrice = document.querySelector("#price");
 const eventTickets = document.querySelector("#tickets");
-const eventInfo = document.querySelector("article");
+const eventInfo = document.querySelector("#content");
 
 
 const baseLink = "http://keawp.needrent.dk/wp-json/wp/v2/db_huset?_embed";
@@ -24,7 +38,7 @@ const paramsId = new URLSearchParams(window.location.search);
 const eventID = paramsId.get("id");
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-console.log(baseLink);
+//console.log(baseLink);
 
 
 function loadPageData(link){
@@ -34,7 +48,7 @@ function showMenu(data){
     data.forEach(object=>{
 
         if(object.id == eventID){
-            console.log(object)
+            //console.log(object)
                 /*document.title =
                 object._embedded['wp:term']['0']['0'].name +
                 " at " +
@@ -43,6 +57,7 @@ function showMenu(data){
             document.title = object.title.rendered + " | Huset-KBH"
 
             eventImg.src = object._embedded['wp:featuredmedia']['0'].media_details.sizes.full.source_url;
+            console.log(object._embedded['wp:featuredmedia']['0'].media_details.sizes.full.source_url);
 
             eventGenre.textContent = object._embedded['wp:term']['0']['0'].name;
 
@@ -75,7 +90,7 @@ function showMenu(data){
             let venueData = object._embedded['wp:term']['1'];
 
             venueData.forEach(function(elem){
-                console.log(elem);
+                //console.log(elem);
 
                 let newVenue = document.createElement('li');
                 let fillVenue = elem.name;
