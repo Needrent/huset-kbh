@@ -1,3 +1,17 @@
+const preload = document.getElementById("preloader");
+
+window.addEventListener('load', function () {
+    setTimeout(preloadEnd,500);
+
+    function preloadEnd(){
+        preload.classList.add("preloadOut");
+        window.addEventListener("animationend", hide);
+
+        function hide(){
+            preload.style.display = "none";
+            }
+        }
+})
 /*------------------------------------------------------------Logo button */
 const logo = document.querySelector("#logo");
 
